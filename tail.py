@@ -21,7 +21,6 @@ def readlog(logfile):
         while True:
             for line in fd:
                 my_colored_line = random.choice(mycolors) + line
-                non_colored_line = line
 
                 # We want this in light red.
                 if "PATTERN1" in line:
