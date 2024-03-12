@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: stx@libera.chat
 # 2024-03-12
+
 import sys
 from colorama import Fore
 import colorama
@@ -23,12 +24,12 @@ def readlog(logfile):
                 non_colored_line = line
 
                 # We want this in light red.
-                if "BROUTF" in line:
+                if "PATTERN1" in line:
                     print(Fore.LIGHTRED_EX + line + colorama.Fore.RESET, end='')
                     continue
                 # We want this in red.
-                elif "PUB" in line:
-                    print(Fore.RED + line + colorama.Fore.RESET, end='')        #this is where shit becomes red
+                elif "PATTERN2" in line:
+                    print(Fore.RED + line + colorama.Fore.RESET, end='')  
                     continue
                 # Everything else in a random color.
                 else:
