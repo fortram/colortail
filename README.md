@@ -5,3 +5,7 @@ Install with:\
 
 Or for a system-wide installation\
 `apt install python3-colorama python3-termcolor`
+
+# How it can look
+![screenshot of colortail](https://escade.net/p/colortail.png)
+
