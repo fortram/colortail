@@ -5,14 +5,13 @@
 
 import sys
 from colorama import Fore
-import colorama
 import random
 import time
 
 # Dont use these colors.
 bad_colors = ['RESET', 'BLACK', 'LIGHTBLACK_EX', 'LIGHTWHITE_EX', 'BLUE', 'RED', 'LIGHTRED_EX']
 
-codes = vars(colorama.Fore)
+codes = vars(Fore)
 mycolors = [codes[color] for color in codes if color not in bad_colors]
 
 def readlog(logfile):
@@ -24,11 +23,11 @@ def readlog(logfile):
 
                 # We want this in light red.
                 if "PATTERN1" in line:
-                    print(Fore.LIGHTRED_EX + line + colorama.Fore.RESET, end='')
+                    print(Fore.LIGHTRED_EX + line + Fore.RESET, end='')
                     continue
                 # We want this in red.
                 elif "PATTERN2" in line:
-                    print(Fore.RED + line + colorama.Fore.RESET, end='')  
+                    print(Fore.RED + line + Fore.RESET, end='')  
                     continue
                 # Everything else in a random color.
                 else:
