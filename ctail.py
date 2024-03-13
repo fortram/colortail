@@ -44,6 +44,8 @@ else:
     try:
         readlog(sys.argv[1])
     except KeyboardInterrupt:
+        # Reset colors.
+        print(Fore.RESET)
         print("Shutting down.")
     except FileNotFoundError:
         print("Error: File not found")
