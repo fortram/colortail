@@ -3,10 +3,7 @@
 # Author: stx@libera.chat
 # 2024-03-12
 # Updated 2024-11-21 
-# 
-# argv args as patterns?
-# make IPs always in a specific color?
-# Make certain words/services always in a specific color?
+# Version 2.0: 2025-01-24
 import sys
 from colorama import Fore
 import random
@@ -18,7 +15,8 @@ bad_colors = ['RESET', 'BLACK', 'LIGHTBLACK_EX', 'LIGHTWHITE_EX', 'BLUE', 'RED',
 #Possible colors: 
 # BLACK, BLUE, CYAN, GREEN, LIGHTBLACK_EX, LIGHTBLUE_EX, LIGHTCYAN_EX, 'LIGHTGREEN_EX, LIGHTMAGENTA_EX, LIGHTRED_EX, LIGHTWHITE_EX,
 # LIGHTYELLOW_EX, MAGENTA, RED, RESET, WHITE, YELLOW
-# Look for these patterns..bättre såhär än en if-sats?
+
+# Patterns to look for; fill in as needed.
 My_Patterns = { 
     "K-Line": "LIGHTRED_EX",
     "failed": "LIGHTCYAN_EX",
@@ -26,14 +24,17 @@ My_Patterns = {
 
 PATTERN1 = "k-line"
 PATTERN2 = "failed"
+
 codes = vars(Fore)
 mycolors = [codes[color] for color in codes if color not in bad_colors]
-my_colored_line = ""
+
+#my_colored_line = ""
 
 def readlog(logfile):
     match_printed = False
-    i = 0
-    global my_colored_line
+    my_colored_line = ""
+
+    #global my_colored_line
     with open(logfile, 'r') as fd:
         fd.seek(0,2)
         while True:
