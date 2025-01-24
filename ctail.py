@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 # Author: stx@libera.chat
 # 2024-03-12
-
+# Updated 2024-11-21 
+# 
+# argv args as patterns?
+# make IPs always in a specific color?
+# Make certain words/services always in a specific color?
 import sys
 from colorama import Fore
 import random
@@ -11,30 +15,46 @@ import time
 # Dont use these colors.
 bad_colors = ['RESET', 'BLACK', 'LIGHTBLACK_EX', 'LIGHTWHITE_EX', 'BLUE', 'RED', 'LIGHTRED_EX']
 
+#Possible colors: 
+# BLACK, BLUE, CYAN, GREEN, LIGHTBLACK_EX, LIGHTBLUE_EX, LIGHTCYAN_EX, 'LIGHTGREEN_EX, LIGHTMAGENTA_EX, LIGHTRED_EX, LIGHTWHITE_EX,
+# LIGHTYELLOW_EX, MAGENTA, RED, RESET, WHITE, YELLOW
+# Look for these patterns..bättre såhär än en if-sats?
+My_Patterns = { 
+    "K-Line": "LIGHTRED_EX",
+    "failed": "LIGHTCYAN_EX",
+    }
+
+PATTERN1 = "k-line"
+PATTERN2 = "failed"
 codes = vars(Fore)
 mycolors = [codes[color] for color in codes if color not in bad_colors]
+my_colored_line = ""
 
 def readlog(logfile):
+    match_printed = False
+    i = 0
+    global my_colored_line
     with open(logfile, 'r') as fd:
         fd.seek(0,2)
         while True:
-            for line in fd:
-                my_colored_line = random.choice(mycolors) + line
+            #for line in fd:
+            line = fd.readline()        # One line at a time
+            if not line:
+                continue
+            my_colored_line = random.choice(mycolors) + line
 
-                # We want this in light red.
-                if "PATTERN1" in line:
-                    print(Fore.LIGHTRED_EX + line + Fore.RESET, end='')
-                    continue
-                # We want this in red.
-                elif "PATTERN2" in line:
-                    print(Fore.RED + line + Fore.RESET, end='')  
-                    continue
-                # Everything else in a random color.
-                else:
-                    print(my_colored_line, end='')
-                    continue
+            match_printed = False
 
-            # Avoid high CPU usage
+            for key in My_Patterns:
+                if key.lower() in line.lower():
+                    hilight = getattr(Fore, My_Patterns[key].upper(), Fore.RESET)
+                    print(f"{hilight}{line}{Fore.RESET}", end='')
+                    match_printed = True
+                    break
+
+            if not match_printed:
+                print(f"{my_colored_line}{Fore.RESET}", end='')
+
             time.sleep(0.1)
 
 
