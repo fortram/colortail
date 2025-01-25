@@ -28,13 +28,10 @@ PATTERN2 = "failed"
 codes = vars(Fore)
 mycolors = [codes[color] for color in codes if color not in bad_colors]
 
-#my_colored_line = ""
-
 def readlog(logfile):
     match_printed = False
     my_colored_line = ""
 
-    #global my_colored_line
     with open(logfile, 'r') as fd:
         fd.seek(0,2)
         while True:
